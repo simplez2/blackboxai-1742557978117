@@ -56,23 +56,35 @@ project-root/
     └── notifications.js
 ```
 
+## Deployment to Cloudflare Pages
+
+1. Install Wrangler CLI globally:
+```bash
+npm install -g wrangler
+```
+
+2. Build the project:
+```bash
+npm run build
+```
+
+3. Deploy to Cloudflare Pages:
+```bash
+wrangler pages publish build
+```
+
+4. Configure Environment Variables in Cloudflare Pages Dashboard:
+   - Go to your project settings
+   - Add the following environment variables:
+     * `OPENAI_API_URL` (optional default API URL)
+     * `OPENAI_API_KEY` (optional default API key)
+
 ## Local Development
 
 1. The application uses React for the frontend and Cloudflare Pages Functions for the backend.
 2. API configuration is stored in the browser's localStorage for security and convenience.
 3. File uploads are handled securely with proper validation.
 4. The Pomodoro timer helps maintain focused study sessions.
-
-## Deployment
-
-1. Connect your repository to Cloudflare Pages
-2. Configure build settings:
-   - Build command: `npm run build`
-   - Build output directory: `build`
-   - Functions directory: `functions`
-3. Set environment variables in Cloudflare Pages dashboard:
-   - `OPENAI_API_URL` (optional default API URL)
-   - `OPENAI_API_KEY` (optional default API key)
 
 ## Security
 
