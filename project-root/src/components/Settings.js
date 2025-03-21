@@ -8,7 +8,8 @@ function Settings() {
     apiUrl: 'https://api.openai.com/v1/chat/completions',
     notifications: true,
     darkMode: false,
-    autoSave: true
+    autoSave: true,
+    language: language // Initialize with current language
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -18,22 +19,33 @@ function Settings() {
     // Load settings from localStorage
     const savedSettings = localStorage.getItem('settings');
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
+      const parsed = JSON.parse(savedSettings);
+      setSettings(prev => ({
+        ...prev,
+        ...parsed,
+        language: language // Always use current language from context
+      }));
     }
-  }, []);
+  }, [language]);
 
   const handleSave = async () => {
     setIsSaving(true);
-    // Save settings to localStorage
-    localStorage.setItem('settings', JSON.stringify(settings));
-    setTimeout(() => {
+    try {
+      // Save settings to localStorage
+      localStorage.setItem('settings', JSON.stringify(settings));
+      // Update language in context if changed
+      if (settings.language !== language) {
+        setLanguage(settings.language);
+      }
+      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
+    } finally {
       setIsSaving(false);
-    }, 1000);
+    }
   };
 
   const handleLanguageChange = (e) => {
     const newLanguage = e.target.value;
-    setLanguage(newLanguage);
+    setSettings(prev => ({ ...prev, language: newLanguage }));
   };
 
   return (
@@ -93,6 +105,7 @@ function Settings() {
               <p className="text-sm text-gray-500">{t('notificationsDesc')}</p>
             </div>
             <button
+              type="button"
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.notifications ? 'bg-indigo-600' : 'bg-gray-200'}`}
               onClick={() => setSettings({...settings, notifications: !settings.notifications})}
             >
@@ -108,6 +121,7 @@ function Settings() {
               <p className="text-sm text-gray-500">{t('darkModeDesc')}</p>
             </div>
             <button
+              type="button"
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.darkMode ? 'bg-indigo-600' : 'bg-gray-200'}`}
               onClick={() => setSettings({...settings, darkMode: !settings.darkMode})}
             >
@@ -123,6 +137,7 @@ function Settings() {
               <p className="text-sm text-gray-500">{t('autoSaveDesc')}</p>
             </div>
             <button
+              type="button"
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.autoSave ? 'bg-indigo-600' : 'bg-gray-200'}`}
               onClick={() => setSettings({...settings, autoSave: !settings.autoSave})}
             >
@@ -138,7 +153,7 @@ function Settings() {
             </label>
             <select
               className="input-field"
-              value={language}
+              value={settings.language}
               onChange={handleLanguageChange}
             >
               <option value="en">English</option>
