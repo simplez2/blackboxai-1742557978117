@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function StudyLog() {
+  const { t } = useLanguage();
   const [logs, setLogs] = useState([]);
   const [newLog, setNewLog] = useState({
     subject: '',
@@ -13,16 +15,16 @@ function StudyLog() {
     <div className="space-y-6">
       {/* Add New Log */}
       <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Add Study Log</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('addStudyLog')}</h2>
         <form className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Subject
+              {t('subject')}
             </label>
             <input
               type="text"
               className="input-field"
-              placeholder="Enter subject name"
+              placeholder={t('enterSubject')}
               value={newLog.subject}
               onChange={(e) => setNewLog({...newLog, subject: e.target.value})}
             />
@@ -30,12 +32,12 @@ function StudyLog() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Duration (minutes)
+              {t('duration')}
             </label>
             <input
               type="number"
               className="input-field"
-              placeholder="Enter duration in minutes"
+              placeholder={t('enterDuration')}
               value={newLog.duration}
               onChange={(e) => setNewLog({...newLog, duration: e.target.value})}
             />
@@ -43,12 +45,12 @@ function StudyLog() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Notes
+              {t('notes')}
             </label>
             <textarea
               className="input-field"
               rows="3"
-              placeholder="Enter study notes"
+              placeholder={t('enterNotes')}
               value={newLog.notes}
               onChange={(e) => setNewLog({...newLog, notes: e.target.value})}
             ></textarea>
@@ -56,7 +58,7 @@ function StudyLog() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              How did it go?
+              {t('howDidItGo')}
             </label>
             <div className="flex space-x-4">
               <button
@@ -84,19 +86,19 @@ function StudyLog() {
           </div>
 
           <button type="submit" className="btn-primary w-full">
-            <i className="fas fa-plus mr-2"></i>Add Log Entry
+            <i className="fas fa-plus mr-2"></i>{t('addLogEntry')}
           </button>
         </form>
       </div>
 
       {/* Study Logs */}
       <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Study History</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('studyHistory')}</h2>
         
         {logs.length === 0 ? (
           <div className="text-center py-8 bg-gray-50 rounded-lg">
             <i className="fas fa-book-reader text-4xl text-gray-400 mb-2"></i>
-            <p className="text-gray-500">No study logs yet. Start by adding your first study session!</p>
+            <p className="text-gray-500">{t('noLogsYet')}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -105,7 +107,7 @@ function StudyLog() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-lg font-semibold">{log.subject}</h3>
-                    <p className="text-gray-600">{log.duration} minutes</p>
+                    <p className="text-gray-600">{log.duration} {t('duration')}</p>
                   </div>
                   <span className="text-2xl">
                     {log.mood === 'great' && <i className="fas fa-smile text-green-500"></i>}
