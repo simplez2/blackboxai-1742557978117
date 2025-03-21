@@ -8,8 +8,7 @@ function Settings() {
     apiUrl: 'https://api.openai.com/v1/chat/completions',
     notifications: true,
     darkMode: false,
-    autoSave: true,
-    language: language // Initialize with current language
+    autoSave: true
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -19,24 +18,14 @@ function Settings() {
     // Load settings from localStorage
     const savedSettings = localStorage.getItem('settings');
     if (savedSettings) {
-      const parsed = JSON.parse(savedSettings);
-      setSettings(prev => ({
-        ...prev,
-        ...parsed,
-        language: language // Always use current language from context
-      }));
+      setSettings(JSON.parse(savedSettings));
     }
-  }, [language]);
+  }, []);
 
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      // Save settings to localStorage
       localStorage.setItem('settings', JSON.stringify(settings));
-      // Update language in context if changed
-      if (settings.language !== language) {
-        setLanguage(settings.language);
-      }
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
     } finally {
       setIsSaving(false);
@@ -45,7 +34,7 @@ function Settings() {
 
   const handleLanguageChange = (e) => {
     const newLanguage = e.target.value;
-    setSettings(prev => ({ ...prev, language: newLanguage }));
+    setLanguage(newLanguage); // Directly update the language context
   };
 
   return (
@@ -153,7 +142,7 @@ function Settings() {
             </label>
             <select
               className="input-field"
-              value={settings.language}
+              value={language}
               onChange={handleLanguageChange}
             >
               <option value="en">English</option>
