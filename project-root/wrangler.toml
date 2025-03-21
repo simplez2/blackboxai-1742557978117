@@ -1,0 +1,22 @@
+name = "ai-study-planner"
+type = "webpack"
+account_id = ""  # Your Cloudflare account ID will be automatically added during deployment
+
+[site]
+bucket = "./build"  # React build output directory
+entry-point = "workers-site"
+
+[build]
+command = "npm run build"
+upload.format = "service-worker"
+
+[build.upload]
+format = "service-worker"
+
+[env.production]
+workers_dev = true
+
+[[rules]]
+type = "NavigationRoute"
+route = "/*"
+handler = "createHandlerBoundToURL('/index.html')"
