@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function StudyPlan() {
+  const { t } = useLanguage();
   const [plan, setPlan] = useState({
     subjects: [],
     schedule: {},
@@ -10,15 +12,15 @@ function StudyPlan() {
   return (
     <div className="space-y-6">
       <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Study Plan</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('studyPlan')}</h2>
         
         {/* Quick Actions */}
         <div className="flex space-x-4 mb-6">
           <button className="btn-primary">
-            <i className="fas fa-plus mr-2"></i>Add Subject
+            <i className="fas fa-plus mr-2"></i>{t('addSubject')}
           </button>
           <button className="btn-secondary">
-            <i className="fas fa-calendar-alt mr-2"></i>View Schedule
+            <i className="fas fa-calendar-alt mr-2"></i>{t('viewSchedule')}
           </button>
         </div>
 
@@ -27,7 +29,7 @@ function StudyPlan() {
           {plan.subjects.length === 0 ? (
             <div className="col-span-full text-center py-8 bg-gray-50 rounded-lg">
               <i className="fas fa-book text-4xl text-gray-400 mb-2"></i>
-              <p className="text-gray-500">No subjects added yet. Click "Add Subject" to get started.</p>
+              <p className="text-gray-500">{t('noSubjectsYet')}</p>
             </div>
           ) : (
             plan.subjects.map((subject, index) => (
@@ -42,10 +44,10 @@ function StudyPlan() {
 
       {/* Goals Section */}
       <div className="card">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Study Goals</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{t('studyGoals')}</h3>
         <div className="space-y-4">
           {plan.goals.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">No goals set yet.</p>
+            <p className="text-gray-500 text-center py-4">{t('noGoalsYet')}</p>
           ) : (
             plan.goals.map((goal, index) => (
               <div key={index} className="flex items-center space-x-3">
@@ -61,20 +63,20 @@ function StudyPlan() {
             ))
           )}
           <button className="btn-secondary w-full mt-4">
-            <i className="fas fa-plus mr-2"></i>Add Goal
+            <i className="fas fa-plus mr-2"></i>{t('addGoal')}
           </button>
         </div>
       </div>
 
       {/* Progress Overview */}
       <div className="card">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Progress Overview</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{t('progressOverview')}</h3>
         <div className="space-y-4">
           <div className="relative pt-1">
             <div className="flex mb-2 items-center justify-between">
               <div>
                 <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-200">
-                  Overall Progress
+                  {t('overallProgress')}
                 </span>
               </div>
               <div className="text-right">
