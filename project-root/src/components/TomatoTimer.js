@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function TomatoTimer() {
+  const { t } = useLanguage();
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 minutes in seconds
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
@@ -49,7 +51,7 @@ function TomatoTimer() {
       {/* Timer Display */}
       <div className="card text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          {isBreak ? 'Break Time!' : 'Focus Time'}
+          {isBreak ? t('breakTime') : t('focusTime')}
         </h2>
         
         <div className="relative w-64 h-64 mx-auto mb-8">
@@ -88,29 +90,29 @@ function TomatoTimer() {
             className={`btn-primary px-8 ${isRunning ? 'bg-red-600 hover:bg-red-700' : ''}`}
           >
             <i className={`fas fa-${isRunning ? 'pause' : 'play'} mr-2`}></i>
-            {isRunning ? 'Pause' : 'Start'}
+            {isRunning ? t('pause') : t('start')}
           </button>
           <button onClick={resetTimer} className="btn-secondary px-8">
-            <i className="fas fa-redo mr-2"></i>Reset
+            <i className="fas fa-redo mr-2"></i>{t('reset')}
           </button>
         </div>
       </div>
 
       {/* Stats */}
       <div className="card">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Today's Progress</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{t('todaysProgress')}</h3>
         <div className="grid grid-cols-3 gap-4 text-center">
           <div className="p-4 bg-indigo-50 rounded-lg">
             <div className="text-2xl font-bold text-indigo-600">{cycles}</div>
-            <div className="text-sm text-gray-600">Cycles</div>
+            <div className="text-sm text-gray-600">{t('cycles')}</div>
           </div>
           <div className="p-4 bg-green-50 rounded-lg">
             <div className="text-2xl font-bold text-green-600">{Math.floor(cycles * 25)} min</div>
-            <div className="text-sm text-gray-600">Focus Time</div>
+            <div className="text-sm text-gray-600">{t('focusTimeLabel')}</div>
           </div>
           <div className="p-4 bg-blue-50 rounded-lg">
             <div className="text-2xl font-bold text-blue-600">{Math.floor(cycles * 5)} min</div>
-            <div className="text-sm text-gray-600">Break Time</div>
+            <div className="text-sm text-gray-600">{t('breakTimeLabel')}</div>
           </div>
         </div>
       </div>
