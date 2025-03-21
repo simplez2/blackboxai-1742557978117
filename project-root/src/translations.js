@@ -22,20 +22,20 @@ const translations = {
     addStudyLog: 'Add Study Log',
     subject: 'Subject',
     enterSubject: 'Enter subject name',
-    duration: 'Duration (minutes)',
+    duration: 'Duration',
     enterDuration: 'Enter duration in minutes',
     notes: 'Notes',
-    enterNotes: 'Enter study notes',
+    enterNotes: 'Enter your study notes',
     howDidItGo: 'How did it go?',
     addLogEntry: 'Add Log Entry',
     studyHistory: 'Study History',
-    noLogsYet: 'No study logs yet. Start by adding your first study session!',
+    noLogsYet: 'No study logs yet.',
 
     // Timer
     focusTime: 'Focus Time',
-    breakTime: 'Break Time!',
-    start: 'Start',
+    breakTime: 'Break Time',
     pause: 'Pause',
+    start: 'Start',
     reset: 'Reset',
     todaysProgress: "Today's Progress",
     cycles: 'Cycles',
@@ -45,14 +45,15 @@ const translations = {
     // AI Summary
     generateAISummary: 'Generate AI Summary',
     selectSubject: 'Select Subject',
-    chooseSubject: 'Choose a subject...',
-    uploadMaterials: 'Upload Study Materials (Optional)',
+    chooseSubject: 'Choose a subject',
+    uploadMaterials: 'Upload Materials',
     uploadFile: 'Upload a file',
     dragAndDrop: 'or drag and drop',
-    fileTypes: 'PDF, DOC up to 10MB',
-    generateSummary: 'Generate Summary',
+    fileTypes: 'PDF, DOC, TXT up to 10MB',
     generatingSummary: 'Generating Summary...',
+    generateSummary: 'Generate Summary',
     studySummary: 'Study Summary',
+    score: 'Score',
     keyPoints: 'Key Points',
     recommendations: 'Recommendations',
 
@@ -69,11 +70,11 @@ const translations = {
     autoSave: 'Auto-save',
     autoSaveDesc: 'Automatically save study progress',
     language: 'Language',
-    saveSettings: 'Save Settings',
-    saving: 'Saving...'
+    saving: 'Saving...',
+    saveSettings: 'Save Settings'
   },
   zh: {
-    // 导航
+    // Navigation
     studyPlan: '学习计划',
     studyLog: '学习记录',
     timer: '计时器',
@@ -81,7 +82,7 @@ const translations = {
     settings: '设置',
     admin: '管理',
 
-    // 学习计划
+    // Study Plan
     addSubject: '添加科目',
     viewSchedule: '查看日程',
     noSubjectsYet: '还没有添加科目。点击"添加科目"开始。',
@@ -91,48 +92,49 @@ const translations = {
     progressOverview: '进度概览',
     overallProgress: '总体进度',
 
-    // 学习记录
+    // Study Log
     addStudyLog: '添加学习记录',
     subject: '科目',
     enterSubject: '输入科目名称',
-    duration: '时长（分钟）',
-    enterDuration: '输入学习时长',
+    duration: '时长',
+    enterDuration: '输入学习时长（分钟）',
     notes: '笔记',
     enterNotes: '输入学习笔记',
-    howDidItGo: '学习感觉如何？',
+    howDidItGo: '学习效果如何？',
     addLogEntry: '添加记录',
     studyHistory: '学习历史',
-    noLogsYet: '还没有学习记录。开始添加你的第一个学习记录吧！',
+    noLogsYet: '还没有学习记录。',
 
-    // 计时器
+    // Timer
     focusTime: '专注时间',
-    breakTime: '休息时间！',
-    start: '开始',
+    breakTime: '休息时间',
     pause: '暂停',
+    start: '开始',
     reset: '重置',
     todaysProgress: '今日进度',
     cycles: '循环次数',
     focusTimeLabel: '专注时间',
     breakTimeLabel: '休息时间',
 
-    // AI总结
+    // AI Summary
     generateAISummary: '生成AI总结',
     selectSubject: '选择科目',
-    chooseSubject: '选择一个科目...',
-    uploadMaterials: '上传学习资料（可选）',
+    chooseSubject: '选择一个科目',
+    uploadMaterials: '上传材料',
     uploadFile: '上传文件',
     dragAndDrop: '或拖拽文件',
-    fileTypes: '支持PDF、DOC格式，最大10MB',
-    generateSummary: '生成总结',
+    fileTypes: '支持PDF、DOC、TXT格式，最大10MB',
     generatingSummary: '正在生成总结...',
+    generateSummary: '生成总结',
     studySummary: '学习总结',
+    score: '得分',
     keyPoints: '要点',
     recommendations: '建议',
 
-    // 设置
+    // Settings
     apiConfiguration: 'API配置',
     apiKey: 'OpenAI API密钥',
-    enterApiKey: '输入你的OpenAI API密钥',
+    enterApiKey: '输入您的OpenAI API密钥',
     apiUrl: 'API地址',
     preferences: '偏好设置',
     notifications: '通知',
@@ -142,8 +144,8 @@ const translations = {
     autoSave: '自动保存',
     autoSaveDesc: '自动保存学习进度',
     language: '语言',
-    saveSettings: '保存设置',
-    saving: '正在保存...'
+    saving: '保存中...',
+    saveSettings: '保存设置'
   }
 };
 
