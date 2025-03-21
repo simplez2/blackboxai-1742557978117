@@ -1,30 +1,41 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import translations from '../translations';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import translationData from '../translations';
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('en');
-  const [translations, setTranslations] = useState({});
+  // Initialize language from localStorage or default to 'en'
+  const [language, setLanguage] = useState(() => {
+    const savedLanguage = localStorage.getItem('language');
+    return savedLanguage || 'en';
+  });
 
-  useEffect(() => {
-    // Load language preference from localStorage
-    const savedLanguage = localStorage.getItem('language') || 'en';
-    setLanguage(savedLanguage);
-  }, []);
+  // Initialize translations based on current language
+  const [translations, setTranslations] = useState(() => {
+    const savedLanguage = localStorage.getItem('language');
+    return translationData[savedLanguage] || translationData.en;
+  });
 
+  // Update translations whenever language changes
   useEffect(() => {
-    // Update translations when language changes
-    setTranslations(translations[language] || translations.en);
+    setTranslations(translationData[language]);
     localStorage.setItem('language', language);
   }, [language]);
 
-  const t = (key) => {
+  // Translation function
+  const t = useCallback((key) => {
     return translations[key] || key;
+  }, [translations]);
+
+  const value = {
+    language,
+    setLanguage,
+    t,
+    translations
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
