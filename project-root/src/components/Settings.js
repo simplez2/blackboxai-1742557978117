@@ -1,38 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function Settings() {
+  const { t, language, setLanguage } = useLanguage();
   const [settings, setSettings] = useState({
     apiKey: '',
     apiUrl: 'https://api.openai.com/v1/chat/completions',
     notifications: true,
     darkMode: false,
-    autoSave: true,
-    language: 'en'
+    autoSave: true
   });
 
   const [isSaving, setIsSaving] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
 
+  useEffect(() => {
+    // Load settings from localStorage
+    const savedSettings = localStorage.getItem('settings');
+    if (savedSettings) {
+      setSettings(JSON.parse(savedSettings));
+    }
+  }, []);
+
   const handleSave = async () => {
     setIsSaving(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Save settings to localStorage
     localStorage.setItem('settings', JSON.stringify(settings));
-    setIsSaving(false);
+    setTimeout(() => {
+      setIsSaving(false);
+    }, 1000);
+  };
+
+  const handleLanguageChange = (e) => {
+    const newLanguage = e.target.value;
+    setLanguage(newLanguage);
   };
 
   return (
     <div className="space-y-6">
       <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Settings</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('settings')}</h2>
 
         {/* API Configuration */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">API Configuration</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{t('apiConfiguration')}</h3>
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              OpenAI API Key
+              {t('apiKey')}
             </label>
             <div className="relative">
               <input
@@ -40,7 +55,7 @@ function Settings() {
                 className="input-field pr-10"
                 value={settings.apiKey}
                 onChange={(e) => setSettings({...settings, apiKey: e.target.value})}
-                placeholder="Enter your OpenAI API key"
+                placeholder={t('enterApiKey')}
               />
               <button
                 type="button"
@@ -54,14 +69,14 @@ function Settings() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              API URL
+              {t('apiUrl')}
             </label>
             <input
               type="text"
               className="input-field"
               value={settings.apiUrl}
               onChange={(e) => setSettings({...settings, apiUrl: e.target.value})}
-              placeholder="Enter API URL"
+              placeholder={t('apiUrl')}
             />
           </div>
         </div>
@@ -70,12 +85,12 @@ function Settings() {
 
         {/* Preferences */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Preferences</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{t('preferences')}</h3>
           
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Notifications</h4>
-              <p className="text-sm text-gray-500">Receive study reminders and updates</p>
+              <h4 className="text-sm font-medium text-gray-900">{t('notifications')}</h4>
+              <p className="text-sm text-gray-500">{t('notificationsDesc')}</p>
             </div>
             <button
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.notifications ? 'bg-indigo-600' : 'bg-gray-200'}`}
@@ -89,8 +104,8 @@ function Settings() {
 
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Dark Mode</h4>
-              <p className="text-sm text-gray-500">Use dark theme</p>
+              <h4 className="text-sm font-medium text-gray-900">{t('darkMode')}</h4>
+              <p className="text-sm text-gray-500">{t('darkModeDesc')}</p>
             </div>
             <button
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.darkMode ? 'bg-indigo-600' : 'bg-gray-200'}`}
@@ -104,8 +119,8 @@ function Settings() {
 
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Auto-save</h4>
-              <p className="text-sm text-gray-500">Automatically save study progress</p>
+              <h4 className="text-sm font-medium text-gray-900">{t('autoSave')}</h4>
+              <p className="text-sm text-gray-500">{t('autoSaveDesc')}</p>
             </div>
             <button
               className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.autoSave ? 'bg-indigo-600' : 'bg-gray-200'}`}
@@ -119,18 +134,15 @@ function Settings() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Language
+              {t('language')}
             </label>
             <select
               className="input-field"
-              value={settings.language}
-              onChange={(e) => setSettings({...settings, language: e.target.value})}
+              value={language}
+              onChange={handleLanguageChange}
             >
               <option value="en">English</option>
               <option value="zh">中文</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
             </select>
           </div>
         </div>
@@ -144,12 +156,12 @@ function Settings() {
             {isSaving ? (
               <>
                 <i className="fas fa-spinner fa-spin mr-2"></i>
-                Saving...
+                {t('saving')}
               </>
             ) : (
               <>
                 <i className="fas fa-save mr-2"></i>
-                Save Settings
+                {t('saveSettings')}
               </>
             )}
           </button>
