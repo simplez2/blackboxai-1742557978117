@@ -127,6 +127,7 @@ function Settings() {
               onChange={(e) => setSettings({...settings, language: e.target.value})}
             >
               <option value="en">English</option>
+              <option value="zh">中文</option>
               <option value="es">Español</option>
               <option value="fr">Français</option>
               <option value="de">Deutsch</option>
